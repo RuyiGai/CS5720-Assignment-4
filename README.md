@@ -17,11 +17,11 @@ Assignment 4.ipynb
 README.md
 ```
 
-### `Home Assignment 2.docx`
+### `Home Assignment 4.docx`
 
 This document contains: short-answer, code and results screenshots
 
-### `Assignment 2.ipynb`
+### `Assignment 4.ipynb`
 
 The Jupyter Notebook contains:
 
