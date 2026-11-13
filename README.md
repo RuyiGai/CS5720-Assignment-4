@@ -98,11 +98,8 @@ The written answers explain why scaling reduces softmax saturation and how self-
 
 ## Conclusion
 
-This assignment provided practical experience with both RNNs and CNNs.
+This assignment covered sequence-to-sequence models for machine translation, hard and soft attention, self-attention, and multi-head attention. The short-answer questions explained how attention addresses the fixed-length context bottleneck and how positional encodings and causal masking support Transformer training and generation.
 
-The RNN tasks demonstrated LSTM-based text generation and sentiment classification, including temperature scaling, confusion matrices, and precision-recall evaluation.
+The programming exercises used regular expressions to tokenize text, NLTK to remove stopwords and stem words, spaCy to identify named entities and report their character offsets, and NumPy to compute scaled dot-product attention. The NumPy exercise put the attention concepts into practice by calculating attention weights and using them to combine value vectors.
 
-The CNN tasks demonstrated convolution with different strides and padding, Sobel edge detection, pooling operations, and the implementation of simplified AlexNet and ResNet-like architectures.
-
-Overall, the assignment provided hands-on experience with fundamental deep learning models and their practical applications.
 
