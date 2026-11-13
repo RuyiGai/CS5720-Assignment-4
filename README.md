@@ -12,186 +12,87 @@
 ## Files
 
 ```text
-Home Assignment 2.docx
-Assignment 2.ipynb
+Home Assignment 4.docx
+Assignment 4.ipynb
 README.md
-dog.jpg
 ```
 
 ### `Home Assignment 2.docx`
 
-This document contains: code and results screenshots
+This document contains: short-answer, code and results screenshots
 
 ### `Assignment 2.ipynb`
 
 The Jupyter Notebook contains:
 
-* The code and results for all five programming questions
+* The code and results for all three programming questions
 * Comments explaining the main steps of the code
 
-### `dog.jpg`
-
-The color dog image used for the Sobel edge detection task in Question 4.
 
 
 ## Assignment Overview
 
-This assignment focuses on practical implementation of Recurrent Neural Networks (RNNs) and Convolutional Neural Networks (CNNs) using TensorFlow/Keras and other Python libraries.
-
-The assignment covers LSTM-based text generation, sentiment classification, convolution operations, edge detection, pooling operations, and CNN architectures including AlexNet and a ResNet-like model.
+This assignment covers sequence-to-sequence models, attention mechanisms, and the Transformer architecture. The programming exercises demonstrate text preprocessing, named entity recognition, and a NumPy implementation of scaled dot-product attention.
 
 
-## Question 1: RNN for Text Generation
+## Part I: Short Answers
 
-An LSTM-based RNN was implemented to generate text character by character.
-
-The Shakespeare Sonnets dataset was loaded and converted into integer character IDs. Training sequences were created using 100-character input sequences and the next character as the target.
-
-The model used:
-
-```text
-Embedding
-    ↓
-LSTM (1024 units)
-    ↓
-Dense (Character Prediction)
-```
-The model was trained for 10 epochs using the Adam optimizer.
-
-New text was generated one character at a time. Temperature scaling was also explained to demonstrate how temperature affects the randomness and diversity of generated text.
+| Question | Topics |
+| --- | --- |
+| 1. Sequence-to-Sequence Models and Attention | Encoder and decoder roles in machine translation, the fixed-length context bottleneck, and attention over encoder hidden states |
+| 2. Attention Mechanisms | Hard and soft attention, backpropagation, dot-product scores, softmax weights, and the context vector |
+| 3. Self-Attention in Transformers | Self-attention and encoder–decoder attention, the roles of Q, K, and V, and long-distance dependencies |
+| 4. Multi-Head Attention | Independent attention heads, the calculation of 64 dimensions per head for a 512-dimensional model with 8 heads, and concatenation followed by an output projection |
+| 5. Transformer Architecture | Positional encodings, causal masking, and the differences between RNN sequence processing, parallel Transformer training, and autoregressive generation |
 
 
-## Question 2: Sentiment Classification Using RNN
+## Part II: Programming
 
-The IMDB movie review dataset was used to build an LSTM-based sentiment classifier.
+### Question 1: NLP Preprocessing Pipeline
 
-The reviews were represented as integer sequences and padded to a maximum length of 200.
+The notebook uses a regular expression to split a sentence about virtual assistants into words and punctuation. It filters punctuation and common English stopwords, lowercases the remaining words, and applies NLTK's Porter stemmer.
 
-The model used:
+The notebook prints the original tokens, the filtered tokens, and the final stems. For example, `techniques` becomes `techniqu` and `assistants` becomes `assist`. The written answers explain the difference between stemming and lemmatization and discuss how stopword removal can affect tasks that depend on negation.
+
+### Question 2: Named Entity Recognition with spaCy
+
+The notebook applies spaCy's `en_core_web_sm` model to the provided sentence about LeBron James. Each detected entity is printed with its text, label, and character offsets. The start offset is inclusive and the end offset is exclusive.
+
+Two examples from the saved output are shown below.
 
 ```text
-Embedding
-    ↓
-LSTM (128 units)
-    ↓
-Dense (1, Sigmoid)
+Text: LeBron James | Label: PERSON | Start: 0 | End: 12
+Text: 2020 | Label: DATE | Start: 90 | End: 94
 ```
 
-The model was trained for 5 epochs using the Adam optimizer.
+The written answers compare named entity recognition with part-of-speech tagging and describe applications of entity recognition.
 
-A confusion matrix and classification report were generated to evaluate:
+### Question 3: Scaled Dot-Product Attention
 
-* Accuracy
-* Precision
-* Recall
-* F1-score
+The notebook computes `Q @ K.T`, divides the scores by the square root of the key dimension, applies softmax to each query row, and multiplies the attention weights by `V`. It subtracts the maximum score in each row before exponentiation for numerical stability.
 
-The model achieved approximately 83%–84% test accuracy.
-
-The precision-recall tradeoff was also discussed to explain why both metrics are important for sentiment classification.
-
-
-## Question 3: Convolution Operations with Different Parameters
-
-A 5×5 input matrix and a 3×3 kernel were used to demonstrate convolution operations with different stride and padding settings.
-
-The following four cases were implemented:
-
-* Stride = 1, Padding = VALID
-* Stride = 1, Padding = SAME
-* Stride = 2, Padding = VALID
-* Stride = 2, Padding = SAME
-
-The output feature maps for each case were printed using TensorFlow.
-
-This experiment demonstrates how stride and padding affect the size and values of convolution outputs.
-
-
-## Question 4: CNN Feature Extraction with Filters and Pooling
-
-### Task 1: Sobel Edge Detection
-
-A color dog image was converted to grayscale using cv2.IMREAD_GRAYSCALE and then processed using Sobel filters for edge detection.
-
-Both Sobel-X and Sobel-Y filters were applied, and the following images were displayed:
-
-* Original Image
-* Sobel-X Edge Detection
-* Sobel-Y Edge Detection
-
-### Task 2: Max Pooling and Average Pooling
-
-A random 4×4 matrix was created and processed using:
-
-* 2×2 Max Pooling
-* 2×2 Average Pooling
-
-The original matrix and both pooled matrices were printed.
-
-This experiment demonstrates the effects of different pooling operations on feature maps.
-
-
-## Question 5: CNN Architectures
-
-### Task 1: AlexNet
-
-A simplified AlexNet architecture was implemented using TensorFlow/Keras.
-
-The model includes:
+For the supplied matrices, the key dimension is 4 and the scaling factor is 2. The notebook prints the following matrices rounded to three decimal places.
 
 ```text
-Conv2D
-MaxPooling
-Conv2D
-MaxPooling
-Conv2D
-Conv2D
-Conv2D
-MaxPooling
-Flatten
-Dense
-Dropout
-Dense
-Dropout
-Dense (10, Softmax)
+Attention Weights:
+[[0.731 0.269]
+ [0.269 0.731]]
+
+Final Output:
+[[2.076 3.076 4.076 5.076]
+ [3.924 4.924 5.924 6.924]]
 ```
 
-The model summary was printed after defining the architecture.
+The written answers explain why scaling reduces softmax saturation and how self-attention uses context to represent relationships between words.
 
-### Task 2: ResNet-like Model
-
-A Residual Block was implemented using two Conv2D layers and a skip connection.
-
-Two residual blocks were then used to build a simple ResNet-like model:
-
-```text
-Input
-   ↓
-Conv2D
-   ↓
-Residual Block
-   ↓
-Residual Block
-   ↓
-Flatten
-   ↓
-Dense (128)
-   ↓
-Dense (10, Softmax)
-```
-
-The model summary was printed to show the complete architecture.
 
 
 ## Technologies Used
 
 * **Python**
-* **TensorFlow / Keras**
+* **NLTK**
+* **spaCy and the `en_core_web_sm` English model**
 * **NumPy**
-* **OpenCV**
-* **Matplotlib**
-* **Seaborn**
-* **Scikit-learn**
 * **Jupyter Notebook**
 
 
